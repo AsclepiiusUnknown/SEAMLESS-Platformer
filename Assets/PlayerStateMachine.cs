@@ -6,11 +6,11 @@ public class PlayerStateMachine : PlayerController
 {
     #region Variables
     [Header("State Machine")]
-    private ColorStates colorState;
+    public ColorStates colorState;
 
 
     [Header("Colors")]
-    protected Colors colors;
+    public Colors colors;
     #endregion
 
 

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     protected PlayerUIManager playerUIManager;
     //? Is this NEEDED with the current art?
     protected PlayerAnimation playerAnimation;
+    protected PlayerStateMachine playerStateMachine;
 
 
     [Header("MISC.")]
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         playerCollision = GetComponent<PlayerCollisions>();
         playerAnimation = GetComponent<PlayerAnimation>();
         playerUIManager = GetComponent<PlayerUIManager>();
+        playerStateMachine = GetComponent<PlayerStateMachine>();
     }
     #endregion
 

@@ -77,21 +77,36 @@ public class PlayerCollisions : PlayerController
     public override void Update()
     {
         base.Update();
-        tempBottomOffset = bottomOffset * colors.purpleMovement.gravityContainer;
-        tempRightOffset = rightOffset * colors.purpleMovement.gravityContainer;
-        tempLeftOffset = leftOffset * colors.purpleMovement.gravityContainer;
-        tempTopRightOffset = topRightOffset * colors.purpleMovement.gravityContainer;
-        tempTopLeftOffset = topLeftOffset * colors.purpleMovement.gravityContainer;
 
         #region Set Contacts
-        isOnGround = Physics2D.OverlapCircle((Vector2)transform.position + tempBottomOffset, collisionRadius, whatIsGround);
+        if (playerStateMachine.colors.purpleMovement != null && playerStateMachine.colors.purpleMovement.enabled)
+        {
+            tempBottomOffset = bottomOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
+            tempRightOffset = rightOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
+            tempLeftOffset = leftOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
+            tempTopRightOffset = topRightOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
+            tempTopLeftOffset = topLeftOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
 
-        isOnWall = Physics2D.OverlapCircle((Vector2)transform.position + tempRightOffset, collisionRadius, whatIsWall) || Physics2D.OverlapCircle((Vector2)transform.position + tempLeftOffset, collisionRadius, whatIsWall);
+            isOnGround = Physics2D.OverlapCircle((Vector2)transform.position + tempBottomOffset, collisionRadius, whatIsGround);
 
-        isOnLedge = Physics2D.OverlapCircle((Vector2)transform.position + tempTopRightOffset, collisionRadius, whatIsLedge) || Physics2D.OverlapCircle((Vector2)transform.position + tempTopLeftOffset, collisionRadius, whatIsLedge);
+            isOnWall = Physics2D.OverlapCircle((Vector2)transform.position + tempRightOffset, collisionRadius, whatIsWall) || Physics2D.OverlapCircle((Vector2)transform.position + tempLeftOffset, collisionRadius, whatIsWall);
 
-        isOnRoof = Physics2D.OverlapCircle((Vector2)transform.position + tempTopRightOffset, collisionRadius, whatIsRoof) || Physics2D.OverlapCircle((Vector2)transform.position + tempTopLeftOffset, collisionRadius, whatIsRoof);
+            isOnLedge = Physics2D.OverlapCircle((Vector2)transform.position + tempTopRightOffset, collisionRadius, whatIsLedge) || Physics2D.OverlapCircle((Vector2)transform.position + tempTopLeftOffset, collisionRadius, whatIsLedge);
+
+            isOnRoof = Physics2D.OverlapCircle((Vector2)transform.position + tempTopRightOffset, collisionRadius, whatIsRoof) || Physics2D.OverlapCircle((Vector2)transform.position + tempTopLeftOffset, collisionRadius, whatIsRoof);
+        }
+        else
+        {
+            isOnGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, whatIsGround);
+
+            isOnWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, whatIsWall) || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, whatIsWall);
+
+            isOnLedge = Physics2D.OverlapCircle((Vector2)transform.position + topRightOffset, collisionRadius, whatIsLedge) || Physics2D.OverlapCircle((Vector2)transform.position + topLeftOffset, collisionRadius, whatIsLedge);
+
+            isOnRoof = Physics2D.OverlapCircle((Vector2)transform.position + topRightOffset, collisionRadius, whatIsRoof) || Physics2D.OverlapCircle((Vector2)transform.position + topLeftOffset, collisionRadius, whatIsRoof);
+        }
         #endregion
+
 
         isGrounded = isOnGround;
         grndLeewayKeeper -= Time.deltaTime;

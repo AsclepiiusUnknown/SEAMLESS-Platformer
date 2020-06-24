@@ -31,15 +31,18 @@ public class PlayerAnimation : PlayerController
             FlipSide();
         }*/
 
+        if (playerStateMachine.colors.purpleMovement != null)
+        {
+            if (isFlipped == false && playerStateMachine.colors.purpleMovement.isNegativeGrav)
+            {
+                FlipUp();
+            }
+            else if (isFlipped == true && !playerStateMachine.colors.purpleMovement.isNegativeGrav)
+            {
+                FlipUp();
+            }
+        }
 
-        if (isFlipped == false && colors.purpleMovement.isNegativeGrav)
-        {
-            FlipUp();
-        }
-        else if (isFlipped == true && !colors.purpleMovement.isNegativeGrav)
-        {
-            FlipUp();
-        }
     }
 
     void FlipSide()

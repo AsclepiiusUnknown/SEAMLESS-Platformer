@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2103758597945789644}
   - component: {fileID: 840899781}
   - component: {fileID: 840899772}
+  - component: {fileID: 2182664102819078531}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -231,7 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782e5b2d1d5becd4ba94705d0f777623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
 --- !u!114 &9042063125914399130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33dc9ea566c6374c87cce249d70f467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
@@ -294,7 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f883f8f6cdf81e642a24e5c777a8e82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   isFacingRight: 1
   isFlipped: 0
 --- !u!114 &840899770
@@ -309,7 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8bf651ecf9457f468352e85ebb95704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   staminaBar: {fileID: 0}
   timeScaleDisplay: {fileID: 0}
   staminaFill: 0
@@ -320,12 +317,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9042063125914399104}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 401966d51980c4c4681bddede4f7a873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   moveDampPct: 0.45
   stopDampPct: 0.25
   turnDampPct: 0
@@ -347,12 +343,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9042063125914399104}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f678977b719ae124b9dcbc118279d4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   moveDampPct: 0.1
   stopDampPct: 0.7
   turnDampPct: 1
@@ -379,12 +374,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9042063125914399104}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caa94312728c580438d0d5ced75295a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   moveDampPct: 0.3
   stopDampPct: 0.7
   turnDampPct: 1
@@ -417,12 +411,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9042063125914399104}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16efc4964740aa9458fb2b286b0f2079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   moveDampPct: 0.3
   stopDampPct: 0.7
   turnDampPct: 1
@@ -452,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9b1c7c6a74d254987a51ca394e22b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollision: {fileID: 0}
   moveDampPct: 0.3
   stopDampPct: 0.7
   turnDampPct: 1
@@ -476,3 +468,22 @@ MonoBehaviour:
   xRawInput: 0
   yRawInput: 0
   rb: {fileID: 0}
+--- !u!114 &2182664102819078531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042063125914399104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1087038514c412849bca74afe44545de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorState: 0
+  colors:
+    redMovement: {fileID: 0}
+    yellowMovement: {fileID: 0}
+    greenMovement: {fileID: 0}
+    blueMovement: {fileID: 0}
+    purpleMovement: {fileID: 0}
