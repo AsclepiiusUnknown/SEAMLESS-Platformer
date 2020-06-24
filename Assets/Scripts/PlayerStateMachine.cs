@@ -37,23 +37,29 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("RED: Enter");
         colorState = ColorStates.Red;
 
-        #region Sprite Colors
-        /**for (int i = 0; i < colors.Length; i++)
-        {
-            if (colors[i].name == colorState.ToString())
-            {
-                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
-                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
-            }
-        }*/
-        #endregion
-
         #region Enabling
         colorScripts.redMovement.enabled = true;
         colorScripts.yellowMovement.enabled = false;
         colorScripts.greenMovement.enabled = false;
         colorScripts.blueMovement.enabled = false;
         colorScripts.purpleMovement.enabled = false;
+        #endregion
+
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                if (playerAnimation.spriteRenderer.color != colors[i].primaryColor)
+                {
+                    RedMovement M = colorScripts.redMovement;
+                    M.rb.velocity = new Vector2(M.rb.velocity.x, M.jumpForce);
+                }
+
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
         #endregion
         #endregion
 
@@ -78,23 +84,29 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("YELLOW: Enter");
         colorState = ColorStates.Yellow;
 
-        #region Sprite Colors
-        for (int i = 0; i < colors.Length; i++)
-        {
-            if (colors[i].name == colorState.ToString())
-            {
-                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
-                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
-            }
-        }
-        #endregion
-
         #region Enabling
         colorScripts.redMovement.enabled = false;
         colorScripts.yellowMovement.enabled = true;
         colorScripts.greenMovement.enabled = false;
         colorScripts.blueMovement.enabled = false;
         colorScripts.purpleMovement.enabled = false;
+        #endregion
+
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                if (playerAnimation.spriteRenderer.color != colors[i].primaryColor)
+                {
+                    YellowMovement M = colorScripts.yellowMovement;
+                    M.rb.velocity = new Vector2(M.rb.velocity.x, M.jumpForce);
+                }
+
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
         #endregion
         #endregion
 
@@ -119,23 +131,29 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("GREEN: Enter");
         colorState = ColorStates.Green;
 
-        #region Sprite Colors
-        for (int i = 0; i < colors.Length; i++)
-        {
-            if (colors[i].name == colorState.ToString())
-            {
-                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
-                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
-            }
-        }
-        #endregion
-
         #region Enabling
         colorScripts.redMovement.enabled = false;
         colorScripts.yellowMovement.enabled = false;
         colorScripts.greenMovement.enabled = true;
         colorScripts.blueMovement.enabled = false;
         colorScripts.purpleMovement.enabled = false;
+        #endregion
+
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                if (playerAnimation.spriteRenderer.color != colors[i].primaryColor)
+                {
+                    GreenMovement M = colorScripts.greenMovement;
+                    M.rb.velocity = new Vector2(M.rb.velocity.x, M.jumpForce);
+                }
+
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
         #endregion
         #endregion
 
@@ -160,23 +178,29 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("BLUE: Enter");
         colorState = ColorStates.Blue;
 
-        #region Sprite Colors
-        for (int i = 0; i < colors.Length; i++)
-        {
-            if (colors[i].name == colorState.ToString())
-            {
-                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
-                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
-            }
-        }
-        #endregion
-
         #region Enabling
         colorScripts.redMovement.enabled = false;
         colorScripts.yellowMovement.enabled = false;
         colorScripts.greenMovement.enabled = false;
         colorScripts.blueMovement.enabled = true;
         colorScripts.purpleMovement.enabled = false;
+        #endregion
+
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                if (playerAnimation.spriteRenderer.color != colors[i].primaryColor)
+                {
+                    BlueMovement M = colorScripts.blueMovement;
+                    M.rb.velocity = new Vector2(M.rb.velocity.x, M.jumpForce);
+                }
+
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
         #endregion
         #endregion
 
@@ -201,23 +225,29 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("PURPLE: Enter");
         colorState = ColorStates.Purple;
 
-        #region Sprite Colors
-        for (int i = 0; i < colors.Length; i++)
-        {
-            if (colors[i].name == colorState.ToString())
-            {
-                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
-                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
-            }
-        }
-        #endregion
-
         #region Enabling
         colorScripts.redMovement.enabled = false;
         colorScripts.yellowMovement.enabled = false;
         colorScripts.greenMovement.enabled = false;
         colorScripts.blueMovement.enabled = false;
         colorScripts.purpleMovement.enabled = true;
+        #endregion
+
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                if (playerAnimation.spriteRenderer.color != colors[i].primaryColor)
+                {
+                    PurpleMovement M = colorScripts.purpleMovement;
+                    M.rb.velocity = new Vector2(M.rb.velocity.x, M.jumpForce);
+                }
+
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
         #endregion
         #endregion
 

@@ -19,6 +19,11 @@ public class PlayerUIManager : PlayerController
 
     public void SetStamina(float value)
     {
+        if (circleBar == null)
+        {
+            print("**NULL**");
+            return;
+        }
         circleBar.fillAmount = value;
     }
 }

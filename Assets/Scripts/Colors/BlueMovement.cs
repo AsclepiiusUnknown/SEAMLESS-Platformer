@@ -65,10 +65,14 @@ public class BlueMovement : PlayerController
 
 
     #region Setup
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     public override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody2D>();
         extraJumpKeeper = extraJumpValue;
         CoyoteTimeKeeper = coyoteTimeValue;
     }
@@ -193,6 +197,11 @@ public class BlueMovement : PlayerController
         float finalisedTime = Mathf.Clamp(Time.timeScale, timeControlCapping.x, timeControlCapping.y);
         Time.timeScale = finalisedTime;
 
+        if (playerUIManager.circleBarText == null)
+        {
+            print("**NULL**");
+            return;
+        }
         playerUIManager.circleBarText.text = "Time Scale: " + Time.timeScale.ToString();
     }
     #endregion

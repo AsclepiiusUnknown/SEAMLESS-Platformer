@@ -100,10 +100,15 @@ public class GreenMovement : PlayerController
 
 
     #region Setup
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+    }
+
     public override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody2D>();
         gravityScaleKeeper = rb.gravityScale;
         extraJumpKeeper = extraJumpValue;
         CoyoteTimeKeeper = coyoteTimeValue;

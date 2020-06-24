@@ -53,10 +53,15 @@ public class RedMovement : PlayerController
     #endregion
 
     #region Setup
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+    }
+
     public override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody2D>();
         CoyoteTimeKeeper = coyoteTimeValue;
     }
     #endregion

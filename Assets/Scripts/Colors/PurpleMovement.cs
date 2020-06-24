@@ -77,10 +77,14 @@ public class PurpleMovement : PlayerController
 
 
     #region Setup
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     public override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody2D>();
         extraJumpKeeper = extraJumpValue;
         extraGravSwitchKeeper = extraGravSwitchValue;
         CoyoteTimeKeeper = coyoteTimeValue;
@@ -271,6 +275,11 @@ public class PurpleMovement : PlayerController
             extraGravSwitchKeeper--;
         }
 
+        if (playerUIManager.circleBarText == null)
+        {
+            print("**NULL**");
+            return;
+        }
         playerUIManager.circleBarText.text = "Gravity Scale: " + rb.gravityScale.ToString();
     }
     #endregion
