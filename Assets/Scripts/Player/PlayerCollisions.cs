@@ -63,7 +63,7 @@ public class PlayerCollisions : PlayerController
     public float collisionRadius = 0.15f;
     public Vector2 bottomOffset, rightOffset, leftOffset, topRightOffset, topLeftOffset;
     public Vector2 tempBottomOffset, tempRightOffset, tempLeftOffset, tempTopRightOffset, tempTopLeftOffset;
-    public Color debugCollisionColor = new Color32();
+    public Color32 debugCollisionColor = new Color32();
     #endregion
     #endregion
 
@@ -79,13 +79,13 @@ public class PlayerCollisions : PlayerController
         base.Update();
 
         #region Set Contacts
-        if (playerStateMachine.colors.purpleMovement != null && playerStateMachine.colors.purpleMovement.enabled)
+        if (playerStateMachine.colorScripts.purpleMovement != null && playerStateMachine.colorScripts.purpleMovement.enabled)
         {
-            tempBottomOffset = bottomOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
-            tempRightOffset = rightOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
-            tempLeftOffset = leftOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
-            tempTopRightOffset = topRightOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
-            tempTopLeftOffset = topLeftOffset * playerStateMachine.colors.purpleMovement.gravityContainer;
+            tempBottomOffset = bottomOffset * playerStateMachine.colorScripts.purpleMovement.gravityContainer;
+            tempRightOffset = rightOffset * playerStateMachine.colorScripts.purpleMovement.gravityContainer;
+            tempLeftOffset = leftOffset * playerStateMachine.colorScripts.purpleMovement.gravityContainer;
+            tempTopRightOffset = topRightOffset * playerStateMachine.colorScripts.purpleMovement.gravityContainer;
+            tempTopLeftOffset = topLeftOffset * playerStateMachine.colorScripts.purpleMovement.gravityContainer;
 
             isOnGround = Physics2D.OverlapCircle((Vector2)transform.position + tempBottomOffset, collisionRadius, whatIsGround);
 

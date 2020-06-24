@@ -61,6 +61,13 @@ public class GreenMovement : PlayerController
     #endregion
 
 
+    #region LEDGE
+    [Header("Ledge Jumping")]
+    public float xLJForce = 3;
+    public float yLJForce = 6;
+    #endregion
+
+
     #region ROOF HANGING
     [Header("Roof Hanging")]
     public float hangStaminaValue = 5;
@@ -78,9 +85,9 @@ public class GreenMovement : PlayerController
     //* PRIVATE //
     [HideInInspector]
     public float gravityScaleKeeper;
-    [HideInInspector]
+    //[HideInInspector]
     public float xRawInput; //The integer input between -1 and 1 to move and check movements on x
-    [HideInInspector]
+    //[HideInInspector]
     public float yRawInput; //The integer input between -1 and 1 to move and check movements on y
     [HideInInspector]
     public Rigidbody2D rb; //The players rigidbody
@@ -162,7 +169,18 @@ public class GreenMovement : PlayerController
 
         if (playerCollision.isLedgeGrabbing) //if we are grabbing the ledge
         {
-            rb.velocity = Vector2.zero; //stop moving
+            extraJumpKeeper = extraJumpValue;
+
+            if (Input.GetKey(KeyCode.T) && (xRawInput != 0 || yRawInput != 0))
+            {
+                float mathedY = Mathf.Sign(yRawInput);
+                float mathedX = Mathf.Sign(xRawInput);
+                rb.velocity = new Vector2(xLJForce * mathedX, yLJForce * mathedY);
+            }
+            else
+            {
+                rb.velocity = Vector2.zero; //stop moving
+            }
         }
         #endregion
 
@@ -186,6 +204,7 @@ public class GreenMovement : PlayerController
 
         if (playerCollision.isRoofHanging) //if we are grabbing the ledge
         {
+            extraJumpKeeper = extraJumpValue;
             rb.velocity = new Vector2(rb.velocity.x, 0); //stop moving
         }
 
@@ -204,6 +223,7 @@ public class GreenMovement : PlayerController
 
         if (isWallSliding) //if we are wall sliding
         {
+            extraJumpKeeper = extraJumpValue;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue)); //Move down the wall at a speed clamped between sliding speed and the max possble float
         }
         #endregion

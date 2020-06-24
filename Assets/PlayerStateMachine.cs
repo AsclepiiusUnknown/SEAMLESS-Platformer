@@ -10,17 +10,19 @@ public class PlayerStateMachine : PlayerController
 
 
     [Header("Colors")]
-    public Colors colors;
+    public ColorScripts colorScripts;
+    public PlayerColor[] colors;
     #endregion
 
 
     public override void Start()
     {
-        colors.redMovement = GetComponent<RedMovement>();
-        colors.yellowMovement = GetComponent<YellowMovement>();
-        colors.greenMovement = GetComponent<GreenMovement>();
-        colors.blueMovement = GetComponent<BlueMovement>();
-        colors.purpleMovement = GetComponent<PurpleMovement>();
+        base.Start();
+        colorScripts.redMovement = GetComponent<RedMovement>();
+        colorScripts.yellowMovement = GetComponent<YellowMovement>();
+        colorScripts.greenMovement = GetComponent<GreenMovement>();
+        colorScripts.blueMovement = GetComponent<BlueMovement>();
+        colorScripts.purpleMovement = GetComponent<PurpleMovement>();
 
         ChangeState(colorState.ToString());
         print(colorState);
@@ -35,12 +37,23 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("RED: Enter");
         colorState = ColorStates.Red;
 
+        #region Sprite Colors
+        /**for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }*/
+        #endregion
+
         #region Enabling
-        colors.redMovement.enabled = true;
-        colors.yellowMovement.enabled = false;
-        colors.greenMovement.enabled = false;
-        colors.blueMovement.enabled = false;
-        colors.purpleMovement.enabled = false;
+        colorScripts.redMovement.enabled = true;
+        colorScripts.yellowMovement.enabled = false;
+        colorScripts.greenMovement.enabled = false;
+        colorScripts.blueMovement.enabled = false;
+        colorScripts.purpleMovement.enabled = false;
         #endregion
         #endregion
 
@@ -65,12 +78,23 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("YELLOW: Enter");
         colorState = ColorStates.Yellow;
 
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
+        #endregion
+
         #region Enabling
-        colors.redMovement.enabled = false;
-        colors.yellowMovement.enabled = true;
-        colors.greenMovement.enabled = false;
-        colors.blueMovement.enabled = false;
-        colors.purpleMovement.enabled = false;
+        colorScripts.redMovement.enabled = false;
+        colorScripts.yellowMovement.enabled = true;
+        colorScripts.greenMovement.enabled = false;
+        colorScripts.blueMovement.enabled = false;
+        colorScripts.purpleMovement.enabled = false;
         #endregion
         #endregion
 
@@ -95,12 +119,23 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("GREEN: Enter");
         colorState = ColorStates.Green;
 
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
+        #endregion
+
         #region Enabling
-        colors.redMovement.enabled = false;
-        colors.yellowMovement.enabled = false;
-        colors.greenMovement.enabled = true;
-        colors.blueMovement.enabled = false;
-        colors.purpleMovement.enabled = false;
+        colorScripts.redMovement.enabled = false;
+        colorScripts.yellowMovement.enabled = false;
+        colorScripts.greenMovement.enabled = true;
+        colorScripts.blueMovement.enabled = false;
+        colorScripts.purpleMovement.enabled = false;
         #endregion
         #endregion
 
@@ -125,12 +160,23 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("BLUE: Enter");
         colorState = ColorStates.Blue;
 
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
+        #endregion
+
         #region Enabling
-        colors.redMovement.enabled = false;
-        colors.yellowMovement.enabled = false;
-        colors.greenMovement.enabled = false;
-        colors.blueMovement.enabled = true;
-        colors.purpleMovement.enabled = false;
+        colorScripts.redMovement.enabled = false;
+        colorScripts.yellowMovement.enabled = false;
+        colorScripts.greenMovement.enabled = false;
+        colorScripts.blueMovement.enabled = true;
+        colorScripts.purpleMovement.enabled = false;
         #endregion
         #endregion
 
@@ -155,12 +201,23 @@ public class PlayerStateMachine : PlayerController
         Debug.Log("PURPLE: Enter");
         colorState = ColorStates.Purple;
 
+        #region Sprite Colors
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i].name == colorState.ToString())
+            {
+                playerAnimation.spriteRenderer.color = colors[i].primaryColor;
+                playerAnimation.rimRenderer.color = colors[i].secondaryColor;
+            }
+        }
+        #endregion
+
         #region Enabling
-        colors.redMovement.enabled = false;
-        colors.yellowMovement.enabled = false;
-        colors.greenMovement.enabled = false;
-        colors.blueMovement.enabled = false;
-        colors.purpleMovement.enabled = true;
+        colorScripts.redMovement.enabled = false;
+        colorScripts.yellowMovement.enabled = false;
+        colorScripts.greenMovement.enabled = false;
+        colorScripts.blueMovement.enabled = false;
+        colorScripts.purpleMovement.enabled = true;
         #endregion
         #endregion
 
@@ -177,6 +234,28 @@ public class PlayerStateMachine : PlayerController
         #endregion
     }
     #endregion
+    #endregion
+
+    #region Block/Color Detection
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        print("HIT");
+        GameObject otherGO = other.gameObject;
+
+        if (playerCollision == null)
+        {
+            print("**NULL**");
+            return;
+        }
+
+        if (otherGO.tag == "Ground" && otherGO.GetComponent<PlatformController>() != null)
+        {
+            PlatformController platform = otherGO.GetComponent<PlatformController>();
+            print("Hit ground with color: " + platform.colors[platform.colorIndex]);
+
+            ChangeState(colors[platform.colorIndex].name);
+        }
+    }
     #endregion
 
     #region State Changing
@@ -198,7 +277,7 @@ public enum ColorStates
 }
 
 [System.Serializable]
-public struct Colors
+public struct ColorScripts
 {
     [Header("Red Attributes")]
     public RedMovement redMovement;
@@ -214,4 +293,12 @@ public struct Colors
 
     [Header("Purple Attributes")]
     public PurpleMovement purpleMovement;
+}
+
+[System.Serializable]
+public struct PlayerColor
+{
+    public string name;
+    public Color32 primaryColor;
+    public Color32 secondaryColor;
 }

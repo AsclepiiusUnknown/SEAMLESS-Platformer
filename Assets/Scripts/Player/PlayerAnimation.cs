@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class PlayerAnimation : PlayerController
 {
-    [Header("Sprite Flipping")]
+    [Header("Animation")]
+    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer rimRenderer;
+
     //* PRIVATE //
     [HideInInspector]
     public bool isFacingRight = true;
     [HideInInspector]
     public bool isFlipped = false;
-    [HideInInspector]
-    private SpriteRenderer spriteRenderer;
 
-    public override void Start()
-    {
-        base.Start();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
-    public void Update()
+    public override void Update()
     {
         base.Update();
         /*if (isFacingRight == false && playerMovement.xRawInput > 0)
@@ -31,13 +27,13 @@ public class PlayerAnimation : PlayerController
             FlipSide();
         }*/
 
-        if (playerStateMachine.colors.purpleMovement != null)
+        if (playerStateMachine.colorScripts.purpleMovement != null)
         {
-            if (isFlipped == false && playerStateMachine.colors.purpleMovement.isNegativeGrav)
+            if (isFlipped == false && playerStateMachine.colorScripts.purpleMovement.isNegativeGrav)
             {
                 FlipUp();
             }
-            else if (isFlipped == true && !playerStateMachine.colors.purpleMovement.isNegativeGrav)
+            else if (isFlipped == true && !playerStateMachine.colorScripts.purpleMovement.isNegativeGrav)
             {
                 FlipUp();
             }

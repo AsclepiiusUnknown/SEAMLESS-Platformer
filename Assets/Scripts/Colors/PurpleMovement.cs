@@ -257,7 +257,7 @@ public class PurpleMovement : PlayerController
             print("set grav");
         }
 
-        playerUIManager.timeScaleDisplay.text = "Gravity Scale: " + rb.gravityScale.ToString();
+        playerUIManager.circleBarText.text = "Gravity Scale: " + rb.gravityScale.ToString();
     }
 
     public void SwitchGravity()
@@ -271,7 +271,7 @@ public class PurpleMovement : PlayerController
             extraGravSwitchKeeper--;
         }
 
-        playerUIManager.timeScaleDisplay.text = "Gravity Scale: " + rb.gravityScale.ToString();
+        playerUIManager.circleBarText.text = "Gravity Scale: " + rb.gravityScale.ToString();
     }
     #endregion
 }

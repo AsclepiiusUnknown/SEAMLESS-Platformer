@@ -193,7 +193,7 @@ public class BlueMovement : PlayerController
         float finalisedTime = Mathf.Clamp(Time.timeScale, timeControlCapping.x, timeControlCapping.y);
         Time.timeScale = finalisedTime;
 
-        playerUIManager.timeScaleDisplay.text = "Time Scale: " + Time.timeScale.ToString();
+        playerUIManager.circleBarText.text = "Time Scale: " + Time.timeScale.ToString();
     }
     #endregion
 }

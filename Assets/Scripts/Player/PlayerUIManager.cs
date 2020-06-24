@@ -6,22 +6,19 @@ using UnityEngine.UI;
 public class PlayerUIManager : PlayerController
 {
     #region Variables
-    public Image staminaBar;
+    public Image circleBar;
+    public Text circleBarText;
 
-    public Text timeScaleDisplay;
-
-    [HideInInspector]
-    public float staminaFill;
+    public Text scaleText;
     #endregion
 
     public override void Update()
     {
         base.Update();
-        //staminaBar.fillAmount = .75f;
     }
 
     public void SetStamina(float value)
     {
-        staminaBar.fillAmount = value;
+        circleBar.fillAmount = value;
     }
 }
