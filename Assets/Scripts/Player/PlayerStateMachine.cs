@@ -269,7 +269,7 @@ public class PlayerStateMachine : PlayerController
     #region Block/Color Detection
     private void OnCollisionEnter2D(Collision2D other)
     {
-        print("HIT");
+        //print("HIT");
         GameObject otherGO = other.gameObject;
 
         if (playerCollision == null)
@@ -281,7 +281,7 @@ public class PlayerStateMachine : PlayerController
         if (otherGO.tag == "Ground" && otherGO.GetComponent<PlatformController>() != null)
         {
             PlatformController platform = otherGO.GetComponent<PlatformController>();
-            print("Hit ground with color: " + platform.colors[platform.colorIndex]);
+            //print("Hit ground with color: " + platform.colors[platform.colorIndex]);
 
             ChangeState(colors[platform.colorIndex].name);
         }

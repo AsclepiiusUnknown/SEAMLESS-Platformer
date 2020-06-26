@@ -952,7 +952,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c086c1874e5ce84a89d4a5e70cb121a, type: 3}
   m_Name: 
@@ -1027,7 +1027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 530747202}
   m_Layer: 0
-  m_Name: _SEAMLESS
+  m_Name: _SEAMLESS letters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3350,6 +3350,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b7bff21c7d58d45abd23fa5f44166f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endWord: SEAMLESS
+  waitTime: 0.025
+  lettersDisplay:
+  - {fileID: 1590015895}
+  - {fileID: 1107084865}
+  - {fileID: 1910889347}
+  - {fileID: 1735552538}
+  - {fileID: 97187883}
+  - {fileID: 1802904614}
+  - {fileID: 903919241}
+  - {fileID: 2089216261}
+  useUppercase: 1
+  useLowercase: 0
+  useSymbols: 0
+  useDigits: 0
 --- !u!1 &1452606295
 GameObject:
   m_ObjectHideFlags: 0
