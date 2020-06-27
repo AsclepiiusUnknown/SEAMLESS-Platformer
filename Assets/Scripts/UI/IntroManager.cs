@@ -31,8 +31,11 @@ public class IntroManager : MonoBehaviour
     private char[] letters;                 //Holds the correct letters (characters) from the word
     private char randomLetter;              //the random letter to compare to the real letter
     private char[] displayLetters;          //the letters for the built word
+
     private int completionCount = 0;
     private bool isCycled = false;
+
+    private bool[] letterDone;
     #endregion
     #endregion
 
@@ -42,11 +45,9 @@ public class IntroManager : MonoBehaviour
         #region Cycling Setup
         letters = endWord.ToCharArray();
         displayLetters = new char[letters.Length];
+        letterDone = new bool[letters.Length];
 
-        for (int i = 0; i < lettersDisplay.Length; i++)
-        {
-            StartCoroutine(RandomLetter(i));
-        }
+        StartCoroutine(CycleLetters(0));
         #endregion
     }
 
@@ -58,11 +59,24 @@ public class IntroManager : MonoBehaviour
         }
     }
 
+    public void StartCycle()
+    {
+        for (int i = 0; i < lettersDisplay.Length && (i == 0 || letterDone[i - 1]); i++)
+        {
+            StartCoroutine(CycleLetters(i));
+        }
+    }
+
     #region SEAMLESS Cycling
     // * //
     #region Cycle Through Till We Reach Correct Letter
-    public IEnumerator RandomLetter(int index)
+    public IEnumerator CycleLetters(int index)
     {
+        while (index > 0 && !letterDone[index - 1])
+        {
+            yield return null;
+        }
+
         while (randomLetter != letters[index])
         {
             displayLetters[index] = randomLetter;
@@ -75,7 +89,11 @@ public class IntroManager : MonoBehaviour
 
         UpdateLetter(index, randomLetter);
 
+        letterDone[index] = true;
         completionCount++;
+
+        if ((index + 1) < letters.Length)
+            StartCoroutine(CycleLetters(index + 1));
     }
     #endregion
 
