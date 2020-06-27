@@ -9,15 +9,15 @@ public class PlatformController : MonoBehaviour
     public int colorIndex;
     public bool useColorIndex;
 
-    private void Start()
+    private void Start ()
     {
         if (thisRenderer == null)
         {
-            thisRenderer = GetComponent<SpriteRenderer>();
+            thisRenderer = GetComponent<SpriteRenderer> ();
         }
 
         if (!useColorIndex)
-            colorIndex = Random.Range(0, colors.Length);
+            colorIndex = Random.Range (0, colors.Length);
 
         thisRenderer.color = colors[colorIndex].primaryColor;
     }
