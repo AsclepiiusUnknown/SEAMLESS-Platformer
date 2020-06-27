@@ -74,10 +74,8 @@ public class PlayerCollisions : PlayerController
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
         #region Set Contacts
         if (playerStateMachine.colorScripts.purpleMovement != null && playerStateMachine.colorScripts.purpleMovement.enabled)
         {

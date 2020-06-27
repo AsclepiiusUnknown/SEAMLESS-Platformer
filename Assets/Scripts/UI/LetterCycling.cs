@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class LetterCycling : MonoBehaviour
 {
@@ -21,8 +21,8 @@ public class LetterCycling : MonoBehaviour
     string uppercaseLatin = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //List of Uppercase letters we cycle through to make our word
 
     [Header("Letters")]
-    private char[] letters;                 //Holds the correct letters (characters) from the word to check against
-    private char randomLetter;              //A random letter to compare to the real letter (changed constantly)
+    private char[] letters; //Holds the correct letters (characters) from the word to check against
+    private char randomLetter; //A random letter to compare to the real letter (changed constantly)
 
     [Header("Completion Checks")]
     private int completionCount = 0; //Used to check how many of the letters are complete
@@ -30,7 +30,6 @@ public class LetterCycling : MonoBehaviour
     private bool[] letterDone; //Used to check which specific letters are complete
     #endregion
     #endregion
-
 
     private void Start()
     {

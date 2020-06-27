@@ -96,12 +96,12 @@ GameObject:
   - component: {fileID: 7465189466623520219}
   - component: {fileID: 7465189466623520216}
   - component: {fileID: 1937236980723286267}
+  - component: {fileID: 335539796918877634}
   - component: {fileID: 1937236980723286266}
   - component: {fileID: 2774390781962936713}
   - component: {fileID: 563090181425959053}
   - component: {fileID: 1937236980723286148}
   - component: {fileID: 1937236980723286269}
-  - component: {fileID: 335539796918877634}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -314,166 +314,6 @@ MonoBehaviour:
   circleBar: {fileID: 0}
   circleBarText: {fileID: 0}
   scaleText: {fileID: 0}
---- !u!114 &1937236980723286266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465189466623520193}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401966d51980c4c4681bddede4f7a873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDampPct: 0.45
-  stopDampPct: 0.25
-  turnDampPct: 0
-  airMoveDampPct: 0.5
-  airStopDampPct: 0
-  airTurnDampPct: 1
-  jumpForce: 6.3
-  jumpHeightCutPct: 0.5
-  coyoteTimeValue: 0.2
-  speedMultiplier: 0.975
-  dampElapseTime: 12
-  xRawInput: -0.00000012708945
-  yRawInput: 0
-  rb: {fileID: 7465189466623520197}
---- !u!114 &2774390781962936713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465189466623520193}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f678977b719ae124b9dcbc118279d4ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDampPct: 0.1
-  stopDampPct: 0.7
-  turnDampPct: 1
-  airMoveDampPct: 0.15
-  airStopDampPct: 0.6
-  airTurnDampPct: 0.9
-  dashStopDampPct: 0.6
-  jumpForce: 6
-  extraJumpValue: 2
-  jumpHeightCutPct: 0.5
-  coyoteTimeValue: 0.3
-  dashSpeed: 5
-  dashLength: 0.4
-  speedMultiplier: 0.95
-  dampElapseTime: 10
-  gravityScaleKeeper: 1
-  xRawInput: -3e-45
-  yRawInput: 0
-  rb: {fileID: 7465189466623520197}
---- !u!114 &563090181425959053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465189466623520193}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa94312728c580438d0d5ced75295a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDampPct: 0.3
-  stopDampPct: 0.7
-  turnDampPct: 1
-  airMoveDampPct: 0.35
-  airStopDampPct: 0.6
-  airTurnDampPct: 0.85
-  jumpForce: 6.4
-  extraJumpValue: 1
-  jumpHeightCutPct: 0.5
-  coyoteTimeValue: 0.2
-  wallSlidingSpeed: 1.25
-  isWallSliding: 0
-  xWJCutPct: 0.1
-  xWJForce: 3
-  yWJForce: 6
-  wallJumpTime: 0.05
-  isWallJumping: 0
-  xLJForce: 6
-  yLJForce: 6
-  hangStaminaValue: 5
-  hangStaminaTimer: -0.45769408
-  speedMultiplier: 0.915
-  dampElapseTime: 10
-  gravityScaleKeeper: 1
-  xRawInput: 0.000002888843
-  yRawInput: 0
-  rb: {fileID: 7465189466623520197}
---- !u!114 &1937236980723286148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465189466623520193}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16efc4964740aa9458fb2b286b0f2079, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDampPct: 0.3
-  stopDampPct: 0.7
-  turnDampPct: 1
-  airMoveDampPct: 0.35
-  airStopDampPct: 0.6
-  airTurnDampPct: 0.85
-  jumpForce: 6.4
-  extraJumpValue: 1
-  jumpHeightCutPct: 0.5
-  coyoteTimeValue: 0.2
-  timeIncrementSize: 0.25
-  timeControlCapping: {x: 0.25, y: 1.5}
-  speedMultiplier: 0.915
-  dampElapseTime: 10
-  xRawInput: 0
-  yRawInput: 0
-  rb: {fileID: 0}
---- !u!114 &1937236980723286269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465189466623520193}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9b1c7c6a74d254987a51ca394e22b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDampPct: 0.3
-  stopDampPct: 0.7
-  turnDampPct: 1
-  airMoveDampPct: 0.35
-  airStopDampPct: 0.6
-  airTurnDampPct: 0.85
-  jumpForce: 6.4
-  extraJumpValue: 1
-  jumpHeightCutPct: 0.5
-  coyoteTimeValue: 0.2
-  gravityIncrementSize: 0.25
-  gravControlCapping: {x: 0, y: 2}
-  extraGravSwitchValue: 1
-  isNegativeGrav: 0
-  isZeroGrav: 0
-  gravityContainer: 0
-  extraGravSwitchKeeper: 0
-  speedMultiplier: 0.915
-  dampElapseTime: 10
-  gravityScaleKeeper: 0
-  xRawInput: 0
-  yRawInput: 0
-  rb: {fileID: 0}
 --- !u!114 &335539796918877634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,3 +369,166 @@ MonoBehaviour:
     secondaryColor:
       serializedVersion: 2
       rgba: 4289689800
+  colorShakeMagnitude: 0.25
+  colorShakeDuration: 0.15
+--- !u!114 &1937236980723286266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465189466623520193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401966d51980c4c4681bddede4f7a873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDampPct: 0.45
+  stopDampPct: 0.25
+  turnDampPct: 0
+  airMoveDampPct: 0.5
+  airStopDampPct: 0
+  airTurnDampPct: 1
+  jumpForce: 6.3
+  jumpHeightCutPct: 0.5
+  coyoteTimeValue: 0.2
+  speedMultiplier: 0.975
+  dampElapseTime: 12
+  xRawInput: -0.00000012708945
+  yRawInput: 0
+  rb: {fileID: 7465189466623520197}
+--- !u!114 &2774390781962936713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465189466623520193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f678977b719ae124b9dcbc118279d4ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDampPct: 0.1
+  stopDampPct: 0.7
+  turnDampPct: 1
+  airMoveDampPct: 0.15
+  airStopDampPct: 0.6
+  airTurnDampPct: 0.9
+  dashStopDampPct: 0.6
+  jumpForce: 7
+  extraJumpValue: 2
+  jumpHeightCutPct: 0.5
+  coyoteTimeValue: 0.3
+  dashSpeed: 45
+  dashLength: 0.1
+  dashCostPct: 0.2
+  waitCostPct: 0.01
+  waitTime: 0.25
+  circleBarFlashColor: {r: 0, g: 0, b: 0, a: 0}
+  circleFillAmount: 0
+  speedMultiplier: 0.95
+  dampElapseTime: 10
+  gravityScaleKeeper: 1
+  xRawInput: -3e-45
+  yRawInput: 0
+  rb: {fileID: 7465189466623520197}
+--- !u!114 &563090181425959053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465189466623520193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa94312728c580438d0d5ced75295a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDampPct: 0.3
+  stopDampPct: 0.7
+  turnDampPct: 1
+  airMoveDampPct: 0.35
+  airStopDampPct: 0.6
+  airTurnDampPct: 0.85
+  jumpForce: 6.5
+  extraJumpValue: 1
+  jumpHeightCutPct: 0.5
+  coyoteTimeValue: 0.2
+  wallSlidingSpeed: 1.25
+  isWallSliding: 0
+  xWJCutPct: 0.1
+  xWJForce: 3.5
+  yWJForce: 6
+  wallJumpTime: 0.05
+  isWallJumping: 0
+  xLJForce: 6
+  yLJForce: 6
+  hangStaminaValue: 5
+  hangStaminaTimer: -0.45769408
+  speedMultiplier: 0.915
+  dampElapseTime: 10
+  gravityScaleKeeper: 1
+  xRawInput: 0.000002888843
+  yRawInput: 0
+  rb: {fileID: 7465189466623520197}
+--- !u!114 &1937236980723286148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465189466623520193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16efc4964740aa9458fb2b286b0f2079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDampPct: 0.3
+  stopDampPct: 0.7
+  turnDampPct: 1
+  airMoveDampPct: 0.35
+  airStopDampPct: 0.6
+  airTurnDampPct: 0.85
+  jumpForce: 6.4
+  extraJumpValue: 1
+  jumpHeightCutPct: 0.5
+  coyoteTimeValue: 0.2
+  timeIncrementSize: 0.25
+  timeControlCapping: {x: 0.25, y: 1.5}
+  speedMultiplier: 0.915
+  dampElapseTime: 10
+  xRawInput: 0
+  yRawInput: 0
+  rb: {fileID: 0}
+--- !u!114 &1937236980723286269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465189466623520193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9b1c7c6a74d254987a51ca394e22b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDampPct: 0.3
+  stopDampPct: 0
+  turnDampPct: 1
+  airMoveDampPct: 0.35
+  airStopDampPct: 0
+  airTurnDampPct: 0.85
+  jumpForce: 6.6
+  extraJumpValue: 1
+  jumpHeightCutPct: 0.5
+  coyoteTimeValue: 0.3
+  extraGravSwitchValue: 1
+  gravityContainer: 1
+  extraGravSwitchKeeper: 1
+  speedMultiplier: 0.915
+  dampElapseTime: 10
+  gravityScaleKeeper: 0
+  xRawInput: -0.17792785
+  yRawInput: -22.990791
+  rb: {fileID: 7465189466623520197}

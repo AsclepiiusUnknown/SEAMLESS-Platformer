@@ -15,9 +15,8 @@ public class PlayerAnimation : PlayerController
     public bool isFlipped = false;
 
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         /*if (isFacingRight == false && playerMovement.xRawInput > 0)
         {
             FlipSide();
@@ -29,11 +28,11 @@ public class PlayerAnimation : PlayerController
 
         if (playerStateMachine.colorScripts.purpleMovement != null)
         {
-            if (isFlipped == false && playerStateMachine.colorScripts.purpleMovement.isNegativeGrav)
+            if (isFlipped == false && playerStateMachine.colorScripts.purpleMovement.gravityContainer < 0)
             {
                 FlipUp();
             }
-            else if (isFlipped == true && !playerStateMachine.colorScripts.purpleMovement.isNegativeGrav)
+            else if (isFlipped == true && playerStateMachine.colorScripts.purpleMovement.gravityContainer > 0)
             {
                 FlipUp();
             }

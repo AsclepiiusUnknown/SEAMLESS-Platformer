@@ -12,6 +12,11 @@ public class PlayerStateMachine : PlayerController
     [Header("Colors")]
     public ColorScripts colorScripts;
     public PlayerColor[] colors;
+
+
+    [Header("Effects")]
+    public float colorShakeMagnitude = .25f;
+    public float colorShakeDuration = .15f;
     #endregion
 
 
@@ -33,18 +38,6 @@ public class PlayerStateMachine : PlayerController
     #region RED
     public IEnumerator RedState()
     {
-        #region Initialisation
-        Debug.Log("RED: Enter");
-        colorState = ColorStates.Red;
-
-        #region Enabling
-        colorScripts.redMovement.enabled = true;
-        colorScripts.yellowMovement.enabled = false;
-        colorScripts.greenMovement.enabled = false;
-        colorScripts.blueMovement.enabled = false;
-        colorScripts.purpleMovement.enabled = false;
-        #endregion
-
         #region Sprite Colors
         for (int i = 0; i < colors.Length; i++)
         {
@@ -61,7 +54,6 @@ public class PlayerStateMachine : PlayerController
             }
         }
         #endregion
-        #endregion
 
         #region Looping
         while (colorState == ColorStates.Red)
@@ -70,28 +62,13 @@ public class PlayerStateMachine : PlayerController
         }
         #endregion
 
-        #region Exit
-        Debug.Log("RED: Exit");
-        //ChangeState(colorState.ToString());
-        #endregion
+        AutomateExit("Red");
     }
     #endregion
 
     #region YELLOW
     public IEnumerator YellowState()
     {
-        #region Initialisation
-        Debug.Log("YELLOW: Enter");
-        colorState = ColorStates.Yellow;
-
-        #region Enabling
-        colorScripts.redMovement.enabled = false;
-        colorScripts.yellowMovement.enabled = true;
-        colorScripts.greenMovement.enabled = false;
-        colorScripts.blueMovement.enabled = false;
-        colorScripts.purpleMovement.enabled = false;
-        #endregion
-
         #region Sprite Colors
         for (int i = 0; i < colors.Length; i++)
         {
@@ -108,7 +85,6 @@ public class PlayerStateMachine : PlayerController
             }
         }
         #endregion
-        #endregion
 
         #region Looping
         while (colorState == ColorStates.Yellow)
@@ -117,27 +93,13 @@ public class PlayerStateMachine : PlayerController
         }
         #endregion
 
-        #region Exit
-        Debug.Log("YELLOW: Exit");
-        //ChangeState(colorState.ToString());
-        #endregion
+        AutomateExit("Yellow");
     }
     #endregion
 
     #region GREEN
     public IEnumerator GreenState()
     {
-        #region Initialisation
-        Debug.Log("GREEN: Enter");
-        colorState = ColorStates.Green;
-
-        #region Enabling
-        colorScripts.redMovement.enabled = false;
-        colorScripts.yellowMovement.enabled = false;
-        colorScripts.greenMovement.enabled = true;
-        colorScripts.blueMovement.enabled = false;
-        colorScripts.purpleMovement.enabled = false;
-        #endregion
 
         #region Sprite Colors
         for (int i = 0; i < colors.Length; i++)
@@ -155,7 +117,6 @@ public class PlayerStateMachine : PlayerController
             }
         }
         #endregion
-        #endregion
 
         #region Looping
         while (colorState == ColorStates.Green)
@@ -164,28 +125,13 @@ public class PlayerStateMachine : PlayerController
         }
         #endregion
 
-        #region Exit
-        Debug.Log("GREEN: Exit");
-        //ChangeState(colorState.ToString());
-        #endregion
+        AutomateExit("Green");
     }
     #endregion
 
     #region BLUE
     public IEnumerator BlueState()
     {
-        #region Initialisation
-        Debug.Log("BLUE: Enter");
-        colorState = ColorStates.Blue;
-
-        #region Enabling
-        colorScripts.redMovement.enabled = false;
-        colorScripts.yellowMovement.enabled = false;
-        colorScripts.greenMovement.enabled = false;
-        colorScripts.blueMovement.enabled = true;
-        colorScripts.purpleMovement.enabled = false;
-        #endregion
-
         #region Sprite Colors
         for (int i = 0; i < colors.Length; i++)
         {
@@ -202,7 +148,6 @@ public class PlayerStateMachine : PlayerController
             }
         }
         #endregion
-        #endregion
 
         #region Looping
         while (colorState == ColorStates.Blue)
@@ -211,28 +156,13 @@ public class PlayerStateMachine : PlayerController
         }
         #endregion
 
-        #region Exit
-        Debug.Log("BLUE: Exit");
-        //ChangeState(colorState.ToString());
-        #endregion
+        AutomateExit("Blue");
     }
     #endregion
 
     #region PURPLE
     public IEnumerator PurpleState()
     {
-        #region Initialisation
-        Debug.Log("PURPLE: Enter");
-        colorState = ColorStates.Purple;
-
-        #region Enabling
-        colorScripts.redMovement.enabled = false;
-        colorScripts.yellowMovement.enabled = false;
-        colorScripts.greenMovement.enabled = false;
-        colorScripts.blueMovement.enabled = false;
-        colorScripts.purpleMovement.enabled = true;
-        #endregion
-
         #region Sprite Colors
         for (int i = 0; i < colors.Length; i++)
         {
@@ -249,7 +179,6 @@ public class PlayerStateMachine : PlayerController
             }
         }
         #endregion
-        #endregion
 
         #region Looping
         while (colorState == ColorStates.Purple)
@@ -258,12 +187,39 @@ public class PlayerStateMachine : PlayerController
         }
         #endregion
 
-        #region Exit
-        Debug.Log("PURPLE: Exit");
-        //ChangeState(colorState.ToString());
-        #endregion
+        AutomateExit("Red");
     }
     #endregion
+    #endregion
+
+    #region State Automation
+    public void AutomateEnter(string color)
+    {
+        #region Resets
+        Time.timeScale = 1;
+        playerUIManager.circleBar.fillAmount = 1;
+        #endregion
+
+        #region Initialisation
+        Debug.Log(color + ": Enter");
+        colorState = (ColorStates)System.Enum.Parse(typeof(ColorStates), color);
+
+        #region Enabling
+        colorScripts.redMovement.enabled = (color == "Red") ? true : false;
+        colorScripts.yellowMovement.enabled = (color == "Yellow") ? true : false;
+        colorScripts.greenMovement.enabled = (color == "Green") ? true : false;
+        colorScripts.blueMovement.enabled = (color == "Blue") ? true : false;
+        colorScripts.purpleMovement.enabled = (color == "Purple") ? true : false;
+        #endregion
+        #endregion
+    }
+
+    public void AutomateExit(string color)
+    {
+        #region Exit
+        Debug.Log(color + ": Exit");
+        #endregion
+    }
     #endregion
 
     #region Block/Color Detection
@@ -283,20 +239,27 @@ public class PlayerStateMachine : PlayerController
             PlatformController platform = otherGO.GetComponent<PlatformController>();
             //print("Hit ground with color: " + platform.colors[platform.colorIndex]);
 
-            ChangeState(colors[platform.colorIndex].name);
+            if (colorState.ToString() != colors[platform.colorIndex].name)
+            {
+                ChangeState(colors[platform.colorIndex].name);
+                StartCoroutine(cameraShake.Shake(colorShakeDuration, colorShakeMagnitude));
+            }
         }
     }
     #endregion
 
     #region State Changing
-    public void ChangeState(string stateName)
+    public void ChangeState(string color)
     {
         StopAllCoroutines();
-        StartCoroutine(stateName + "State");
-        print("changed to " + stateName);
+
+        AutomateEnter(color);
+        StartCoroutine(color + "State");
+        print("changed to " + color);
     }
     #endregion
 }
+
 public enum ColorStates
 {
     Red,

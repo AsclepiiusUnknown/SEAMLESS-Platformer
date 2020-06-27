@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YellowMovement : PlayerController
+public class PurpleMovement : PlayerController
 {
     #region Variables
     // * //
     #region DAMPING
     [Header("Ground Damping")]
     [Range(0, 1)] //Kept as a pct value
-    public float moveDampPct = .1f; //The pct used to dampen normal acceleration/movement
+    public float moveDampPct = .3f; //The pct used to dampen normal acceleration/movement
     [Range(0, 1)] //Kept as a pct value
     public float stopDampPct = .7f; //The pct used to dampen normal decceleration/stopping 
     [Range(0, 1)] //Kept as a pct value
@@ -18,38 +18,48 @@ public class YellowMovement : PlayerController
 
     [Header("Air Damping")]
     [Range(0, 1)] //Kept as a pct value
-    public float airMoveDampPct = .15f; //The pct used to dampen normal acceleration/movement
+    public float airMoveDampPct = .35f; //The pct used to dampen normal acceleration/movement
     [Range(0, 1)] //Kept as a pct value
     public float airStopDampPct = .6f; //The pct used to dampen normal decceleration/stopping 
     [Range(0, 1)] //Kept as a pct value
-    public float airTurnDampPct = .9f; //The pct used to dampen normal turning to go the other way
-    [Range(0, 1)] //Kept as a pct value
-    public float dashStopDampPct = .6f; //The pct used to dampen dash decceleration/stopping
+    public float airTurnDampPct = .85f; //The pct used to dampen normal turning to go the other way
     #endregion
 
 
     #region JUMPING
     [Header("Jumping")]
-    public float jumpForce = 6;
-    public int extraJumpValue = 2;
+    public float jumpForce = 6.4f;
+    public int extraJumpValue = 1;
     [Range(0, 1)]
     public float jumpHeightCutPct = .5f;
-    public float coyoteTimeValue = .3f;
+    public float coyoteTimeValue = .2f;
     #endregion
 
 
-    #region DASHING
-    [Header("Dashing")]
-    public float dashSpeed = 5;
-    public float dashLength = .4f;
-    private bool hasDashed;
-    private bool isDashing;
+    #region GRAVITY CONTROL
+    [Header("Gravity Control")]
+    public int extraGravSwitchValue = 1;
+
+    //* PRIVATE //
+    [HideInInspector]
+    public int gravityContainer;
+    [HideInInspector]
+    public int extraGravSwitchKeeper;
+    #endregion
+
+
+    #region STAMINA
+    public float zeroCostPct = .15f;
+    public float waitTime = 1;
+    //*PRIVATE//
+    [HideInInspector]
+    public float circleFillAmount;
     #endregion
 
 
     #region MISC.
     [Header("MISC")]
-    public float speedMultiplier = .95f; //Multiplier used to change the overall speed (1 = no difference)
+    public float speedMultiplier = .915f; //Multiplier used to change the overall speed (1 = no difference)
     public float dampElapseTime = 10; //How long the damping is spread over time (can be split like the damp pct values above)
 
     //* PRIVATE //
@@ -68,28 +78,72 @@ public class YellowMovement : PlayerController
     #endregion
     #endregion
 
+
     #region Setup
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
     }
 
     public override void Start()
     {
         base.Start();
-        gravityScaleKeeper = rb.gravityScale;
+        rb.gravityScale = 1;
+
         extraJumpKeeper = extraJumpValue;
+        extraGravSwitchKeeper = extraGravSwitchValue;
         CoyoteTimeKeeper = coyoteTimeValue;
+    }
+
+    private void OnEnable()
+    {
+        circleFillAmount = .5f;
     }
     #endregion
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-        rb.gravityScale = (playerCollision.isLedgeGrabbing) ? 0 : gravityScaleKeeper;
+        #region Gravity Checking
+        if (rb.gravityScale < 0)
+        {
+            gravityContainer = -1;
+        }
+        else if (rb.gravityScale == 0)
+        {
+            gravityContainer = 0;
+            circleFillAmount -= (zeroCostPct * Time.deltaTime) * waitTime;
+            if (circleFillAmount <= 0)
+            {
+                ToggleGravityPause();
+            }
+        }
+        else
+        {
+            gravityContainer = 1;
+        }
+        #endregion
+
+
+        #region Gravity Input
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            ToggleGravityPause();
+        }
+
+        if (extraGravSwitchKeeper > 0 && Input.GetKeyDown(KeyCode.U))
+        {
+            SwitchGravity();
+        }
+
+        #endregion
+
 
         #region Jumping
+        if (gravityContainer == 0)
+        {
+            return;
+        }
+
         CoyoteTimeKeeper -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -101,6 +155,7 @@ public class YellowMovement : PlayerController
         {
             playerCollision.grndLeewayKeeper = playerCollision.grndLeewayValue;
             extraJumpKeeper = extraJumpValue;
+            extraGravSwitchKeeper = extraGravSwitchValue;
         }
 
         if (CoyoteTimeKeeper > 0 && playerCollision.grndLeewayKeeper > 0)
@@ -108,12 +163,12 @@ public class YellowMovement : PlayerController
             CoyoteTimeKeeper = 0;
             playerCollision.grndLeewayKeeper = 0;
 
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * gravityContainer);
         }
         else if (Input.GetKeyDown(KeyCode.T) && extraJumpKeeper > 0 && !playerCollision.isGrounded && !playerCollision.isLedgeGrabbing) //ledge grabbing?
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * gravityContainer);
 
             extraJumpKeeper--;
         }
@@ -163,12 +218,7 @@ public class YellowMovement : PlayerController
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) < .01f)
             {
-                if (!isDashing)
-                    xRawInput *= Mathf.Pow(1f - airStopDampPct, Time.deltaTime * dampElapseTime);
-                else
-                {
-                    xRawInput *= Mathf.Pow(1f - dashStopDampPct, Time.deltaTime * dampElapseTime);
-                }
+                xRawInput *= Mathf.Pow(1f - airStopDampPct, Time.deltaTime * dampElapseTime);
             }
             else if (Mathf.Sign(Input.GetAxisRaw("Horizontal")) != Mathf.Sign(xRawInput))
             {
@@ -190,48 +240,37 @@ public class YellowMovement : PlayerController
         #endregion
     }
 
-
-    #region Dashing Functionality
-    private void Dash(float x, float y)
+    #region Gravity Control
+    public void ToggleGravityPause()
     {
-        isDashing = true;
+        if (gravityContainer > 0 && (circleFillAmount - (zeroCostPct * Time.deltaTime) * waitTime) > 0)
+        {
+            gravityScaleKeeper = rb.gravityScale;
 
-        hasDashed = true;
+            rb.gravityScale = 0;
+            gravityContainer = 0;
+            circleFillAmount = 1;
+        }
+        else
+        {
+            rb.gravityScale = gravityScaleKeeper;
+            gravityContainer = Mathf.FloorToInt(Mathf.Sign(gravityScaleKeeper));
+            circleFillAmount = .5f;
+        }
 
-        //anim.SetTrigger("dash");
-
-        rb.velocity = Vector2.zero;
-        Vector2 dir = new Vector2(x, y);
-        //print("Dashed" + x + ", " + y);
-
-        rb.velocity += dir.normalized * dashSpeed;
-        StartCoroutine(DashWait());
     }
 
-    IEnumerator DashWait()
+    public void SwitchGravity()
     {
-        StartCoroutine(GroundDash());
+        rb.gravityScale *= -1;
+        gravityContainer *= -1;
 
-        //dashParticle.Play();
-        rb.gravityScale = 0;
-        //GetComponent<BetterJumping>().enabled = false;
-        //wallJumped = true;
-        // 
-        //isDashing = true;
+        if (playerCollision.grndLeewayKeeper < 0)
+        {
+            extraGravSwitchKeeper--;
+        }
 
-        yield return new WaitForSeconds(dashLength);
 
-        rb.gravityScale = gravityScaleKeeper;
-        //GetComponent<BetterJumping>().enabled = true;
-        //wallJumped = false;
-        isDashing = false;
-    }
-
-    IEnumerator GroundDash()
-    {
-        yield return new WaitForSeconds(.15f);
-        if (playerCollision.isGrounded)
-            hasDashed = false;
     }
     #endregion
 }

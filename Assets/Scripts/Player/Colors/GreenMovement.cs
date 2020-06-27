@@ -68,12 +68,16 @@ public class GreenMovement : PlayerController
     #endregion
 
 
-    #region ROOF HANGING
-    [Header("Roof Hanging")]
-    public float hangStaminaValue = 5;
-
+    #region STAMINA
+    [Header("Stamina")]
+    public float WJumpCostPct = .15f;
+    public float LJumpCostPct = .2f;
+    public float holdCostPct = .075f;
+    public float waitTime = 1;
+    public Color circleBarFlashColor;
+    //*PRIVATE
     [HideInInspector]
-    public float hangStaminaTimer;
+    public float circleFillAmount;
     #endregion
 
 
@@ -109,15 +113,20 @@ public class GreenMovement : PlayerController
     public override void Start()
     {
         base.Start();
+        rb.gravityScale = 1;
         gravityScaleKeeper = rb.gravityScale;
         extraJumpKeeper = extraJumpValue;
         CoyoteTimeKeeper = coyoteTimeValue;
     }
+
+    private void OnEnable()
+    {
+        circleFillAmount = 1;
+    }
     #endregion
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         rb.gravityScale = (playerCollision.isLedgeGrabbing) ? 0 : gravityScaleKeeper;
 
         #region Jumping
@@ -165,22 +174,36 @@ public class GreenMovement : PlayerController
 
         if (!isTouchingLedge && isTouchingWall && Input.GetKey(KeyCode.Y)) //If we are touching the wall but not the ledge (aka at the top of the wall/ledge)
         {
-            playerCollision.isLedgeGrabbing = true; //We are now grabbing the ledge
+            if ((circleFillAmount - (holdCostPct * Time.deltaTime) * waitTime) > 0)
+            {
+                playerCollision.isLedgeGrabbing = true; //We are now grabbing the ledge
+                circleFillAmount -= (holdCostPct * Time.deltaTime) * waitTime;
+            }
         }
         else //otherwise
         {
             playerCollision.isLedgeGrabbing = false; //we arent grabbing the ledge
         }
+        #endregion
 
+        #region Ledge Jumping
         if (playerCollision.isLedgeGrabbing) //if we are grabbing the ledge
         {
             extraJumpKeeper = extraJumpValue;
 
             if (Input.GetKey(KeyCode.T) && (xRawInput != 0 || yRawInput != 0))
             {
-                float mathedY = Mathf.Sign(yRawInput);
-                float mathedX = Mathf.Sign(xRawInput);
-                rb.velocity = new Vector2(xLJForce * mathedX, yLJForce * mathedY);
+                if ((circleFillAmount - LJumpCostPct) > 0)
+                {
+                    float mathedY = Mathf.Sign(yRawInput);
+                    float mathedX = Mathf.Sign(xRawInput);
+                    rb.velocity = new Vector2(xLJForce * mathedX, yLJForce * mathedY);
+                    circleFillAmount -= LJumpCostPct;
+                }
+                else
+                {
+                    StartCoroutine(playerUIManager.NegativeFlash(playerUIManager.circleBar, circleBarFlashColor, 5));
+                }
             }
             else
             {
@@ -194,13 +217,11 @@ public class GreenMovement : PlayerController
 
         if (isTouchingRoof && Input.GetKey(KeyCode.Y) && !playerCollision.isOnWall) //If we are touching the roof and holding grab key
         {
-            if (!playerCollision.isRoofHanging)
+            if ((circleFillAmount - (holdCostPct * Time.deltaTime) * waitTime) > 0)
             {
-
+                playerCollision.isRoofHanging = true; //We are now grabbing the ledge
+                circleFillAmount -= (holdCostPct * Time.deltaTime) * waitTime;
             }
-
-            hangStaminaTimer -= Time.deltaTime;
-            playerCollision.isRoofHanging = true; //We are now grabbing the ledge
         }
         else //otherwise
         {
@@ -212,8 +233,6 @@ public class GreenMovement : PlayerController
             extraJumpKeeper = extraJumpValue;
             rb.velocity = new Vector2(rb.velocity.x, 0); //stop moving
         }
-
-        playerUIManager.SetStamina((hangStaminaTimer / hangStaminaValue) * 100);
         #endregion
 
         #region Wall Sliding

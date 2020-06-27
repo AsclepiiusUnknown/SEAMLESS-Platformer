@@ -62,13 +62,13 @@ public class RedMovement : PlayerController
     public override void Start()
     {
         base.Start();
+        rb.gravityScale = 1;
         CoyoteTimeKeeper = coyoteTimeValue;
     }
     #endregion
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         #region Jumping
         CoyoteTimeKeeper -= Time.deltaTime;
 

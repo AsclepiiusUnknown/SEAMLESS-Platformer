@@ -107,9 +107,8 @@ public class PlayerMovement : PlayerController
     }
     #endregion
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         rb.gravityScale = (playerCollision.isLedgeGrabbing) ? 0 : gravityScaleKeeper;
 
         #region Jumping
@@ -203,7 +202,7 @@ public class PlayerMovement : PlayerController
             rb.velocity = new Vector2(rb.velocity.x, 0); //stop moving
         }
 
-        playerUIManager.SetStamina((hangStaminaTimer / hangStaminaValue) * 100);
+        //playerUIManager.SetStamina((hangStaminaTimer / hangStaminaValue) * 100);
         #endregion
 
         #region Wall Sliding

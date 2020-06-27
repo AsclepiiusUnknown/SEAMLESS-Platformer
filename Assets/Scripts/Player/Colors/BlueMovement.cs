@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PurpleMovement : PlayerController
+public class BlueMovement : PlayerController
 {
     #region Variables
     // * //
@@ -36,21 +36,18 @@ public class PurpleMovement : PlayerController
     #endregion
 
 
-    #region GRAVITY CONTROL
-    [Header("Gravity Control")]
-    public float gravityIncrementSize = .25f;
-    public Vector2 gravControlCapping = new Vector2(0, 1);
-    public int extraGravSwitchValue = 1;
+    #region TIME CONTROL
+    [Header("Time Control")]
+    [Tooltip("This is what the timeScale will be reduced by each time a corresponding key is pressed.")]
+    public float timeIncrementSize = .25f;
+    public Vector2 timeControlCapping = new Vector2(.25f, 1.75f);
+    #endregion
 
-    //* PRIVATE //
+
+    #region STAMINA
+    //*PRIVATE//
     [HideInInspector]
-    public bool isNegativeGrav;
-    [HideInInspector]
-    public bool isZeroGrav;
-    [HideInInspector]
-    public int gravityContainer;
-    [HideInInspector]
-    public int extraGravSwitchKeeper;
+    public float circleFillAmount;
     #endregion
 
 
@@ -60,8 +57,6 @@ public class PurpleMovement : PlayerController
     public float dampElapseTime = 10; //How long the damping is spread over time (can be split like the damp pct values above)
 
     //* PRIVATE //
-    [HideInInspector]
-    public float gravityScaleKeeper;
     [HideInInspector]
     public float xRawInput; //The integer input between -1 and 1 to move and check movements on x
     [HideInInspector]
@@ -85,67 +80,20 @@ public class PurpleMovement : PlayerController
     public override void Start()
     {
         base.Start();
+        rb.gravityScale = 1;
         extraJumpKeeper = extraJumpValue;
-        extraGravSwitchKeeper = extraGravSwitchValue;
         CoyoteTimeKeeper = coyoteTimeValue;
+    }
+
+    private void OnEnable()
+    {
+        circleFillAmount = .5f;
     }
     #endregion
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-        #region Gravity Checking
-        if (rb.gravityScale < 0)
-        {
-            isNegativeGrav = true;
-            isZeroGrav = false;
-
-            gravityContainer = -1;
-        }
-        else if (rb.gravityScale == 0)
-        {
-            isNegativeGrav = false;
-            isZeroGrav = true;
-
-            gravityContainer = 0;
-        }
-        else
-        {
-            isNegativeGrav = false;
-            isZeroGrav = false;
-
-            gravityContainer = 1;
-        }
-        #endregion
-
-
-        #region Gravity Input
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            IncrementGravity(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Y))
-        {
-            IncrementGravity(-1);
-        }
-
-        if (extraGravSwitchKeeper > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SwitchGravity();
-            }
-        }
-
-        #endregion
-
-
         #region Jumping
-        if (isZeroGrav)
-        {
-            return;
-        }
-
         CoyoteTimeKeeper -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -157,7 +105,6 @@ public class PurpleMovement : PlayerController
         {
             playerCollision.grndLeewayKeeper = playerCollision.grndLeewayValue;
             extraJumpKeeper = extraJumpValue;
-            extraGravSwitchKeeper = extraGravSwitchValue;
         }
 
         if (CoyoteTimeKeeper > 0 && playerCollision.grndLeewayKeeper > 0)
@@ -165,12 +112,12 @@ public class PurpleMovement : PlayerController
             CoyoteTimeKeeper = 0;
             playerCollision.grndLeewayKeeper = 0;
 
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * gravityContainer);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
         else if (Input.GetKeyDown(KeyCode.T) && extraJumpKeeper > 0 && !playerCollision.isGrounded && !playerCollision.isLedgeGrabbing) //ledge grabbing?
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * gravityContainer);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
             extraJumpKeeper--;
         }
@@ -181,6 +128,17 @@ public class PurpleMovement : PlayerController
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpHeightCutPct);
             }
+        }
+        #endregion
+
+        #region Time Input
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            IncrementTime(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Y))
+        {
+            IncrementTime(-1);
         }
         #endregion
     }
@@ -242,45 +200,22 @@ public class PurpleMovement : PlayerController
         #endregion
     }
 
-    #region Gravity Control
-    public void IncrementGravity(int direction)
+    #region Time Control
+    public void IncrementTime(int direction)
     {
-        float scaleChange = gravityIncrementSize * direction;
+        float scaleChange = timeIncrementSize * direction;
 
-        //rb.gravityScale += scaleChange;
-        float finalisedGravity = Mathf.Clamp(rb.gravityScale + scaleChange, gravControlCapping.x, gravControlCapping.y);
-
-        if (finalisedGravity == 0)
-        {
-            SwitchGravity();
-            print("switch");
-        }
-        else
-        {
-            rb.gravityScale = finalisedGravity;
-            print("set grav");
-        }
-
-        playerUIManager.circleBarText.text = "Gravity Scale: " + rb.gravityScale.ToString();
-    }
-
-    public void SwitchGravity()
-    {
-        gravControlCapping.y *= -1;
-
-        rb.gravityScale *= -1;
-
-        if (playerCollision.grndLeewayKeeper < 0)
-        {
-            extraGravSwitchKeeper--;
-        }
+        Time.timeScale += scaleChange;
+        float finalisedTime = Mathf.Clamp(Time.timeScale, timeControlCapping.x, timeControlCapping.y);
+        Time.timeScale = finalisedTime;
 
         if (playerUIManager.circleBarText == null)
         {
             print("**NULL**");
             return;
         }
-        playerUIManager.circleBarText.text = "Gravity Scale: " + rb.gravityScale.ToString();
+
+        circleFillAmount += direction * (.5f / 3);
     }
     #endregion
 }
