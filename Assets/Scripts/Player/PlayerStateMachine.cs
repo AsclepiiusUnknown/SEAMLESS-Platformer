@@ -197,7 +197,8 @@ public class PlayerStateMachine : PlayerController
     {
         #region Resets
         Time.timeScale = 1;
-        playerUIManager.circleBar.fillAmount = 1;
+        if (playerUIManager.circleBar != null)
+            playerUIManager.circleBar.fillAmount = 1;
         #endregion
 
         #region Initialisation

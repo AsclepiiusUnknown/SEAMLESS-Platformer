@@ -16,7 +16,8 @@ public class PlayerUIManager : PlayerController
 
     public override void Start()
     {
-        cicleBarColor = circleBar.color;
+        if (circleBar != null)
+            cicleBarColor = circleBar.color;
     }
 
     private void Update()

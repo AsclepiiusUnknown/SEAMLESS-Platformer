@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 1937236980723286269}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782e5b2d1d5becd4ba94705d0f777623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
 --- !u!114 &7465189466623520219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33dc9ea566c6374c87cce249d70f467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
@@ -295,6 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f883f8f6cdf81e642a24e5c777a8e82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   spriteRenderer: {fileID: 7465189466623520198}
   rimRenderer: {fileID: 1553292156876855310}
   isFacingRight: 1
@@ -311,6 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8bf651ecf9457f468352e85ebb95704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   circleBar: {fileID: 0}
   circleBarText: {fileID: 0}
   scaleText: {fileID: 0}
@@ -326,6 +334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1087038514c412849bca74afe44545de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   colorState: 0
   colorScripts:
     redMovement: {fileID: 0}
@@ -383,6 +393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401966d51980c4c4681bddede4f7a873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   moveDampPct: 0.45
   stopDampPct: 0.25
   turnDampPct: 0
@@ -409,6 +421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f678977b719ae124b9dcbc118279d4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   moveDampPct: 0.1
   stopDampPct: 0.7
   turnDampPct: 1
@@ -423,9 +437,9 @@ MonoBehaviour:
   dashSpeed: 45
   dashLength: 0.1
   dashCostPct: 0.2
-  waitCostPct: 0.01
-  waitTime: 0.25
-  circleBarFlashColor: {r: 0, g: 0, b: 0, a: 0}
+  waitCostPct: 0.075
+  waitTime: 1
+  circleBarFlashColor: {r: 0.9254902, g: 0.15294118, b: 0.24705882, a: 1}
   circleFillAmount: 0
   speedMultiplier: 0.95
   dampElapseTime: 10
@@ -445,6 +459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa94312728c580438d0d5ced75295a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   moveDampPct: 0.3
   stopDampPct: 0.7
   turnDampPct: 1
@@ -464,8 +480,12 @@ MonoBehaviour:
   isWallJumping: 0
   xLJForce: 6
   yLJForce: 6
-  hangStaminaValue: 5
-  hangStaminaTimer: -0.45769408
+  WJumpCostPct: 0.15
+  LJumpCostPct: 0.2
+  holdCostPct: 0.075
+  waitTime: 1
+  circleBarFlashColor: {r: 1, g: 0, b: 0, a: 0}
+  circleFillAmount: 0
   speedMultiplier: 0.915
   dampElapseTime: 10
   gravityScaleKeeper: 1
@@ -484,6 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16efc4964740aa9458fb2b286b0f2079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   moveDampPct: 0.3
   stopDampPct: 0.7
   turnDampPct: 1
@@ -495,7 +517,8 @@ MonoBehaviour:
   jumpHeightCutPct: 0.5
   coyoteTimeValue: 0.2
   timeIncrementSize: 0.25
-  timeControlCapping: {x: 0.25, y: 1.5}
+  timeControlCapping: {x: 0.25, y: 1.75}
+  circleFillAmount: 0
   speedMultiplier: 0.915
   dampElapseTime: 10
   xRawInput: 0
@@ -513,6 +536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9b1c7c6a74d254987a51ca394e22b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawns: 3
+  respawnWaitTime: 3
   moveDampPct: 0.3
   stopDampPct: 0
   turnDampPct: 1
@@ -526,6 +551,9 @@ MonoBehaviour:
   extraGravSwitchValue: 1
   gravityContainer: 1
   extraGravSwitchKeeper: 1
+  zeroCostPct: 0.15
+  waitTime: 1
+  circleFillAmount: 0
   speedMultiplier: 0.915
   dampElapseTime: 10
   gravityScaleKeeper: 0

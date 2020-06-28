@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     public float smoothSpeed = 0.0625f;
     public Vector3 offset;
     public bool canFollow = true;
+    public Vector2 topLeftBound;
+    public Vector2 bottomRightBound;
 
     private BoxCollider2D boxCollider;
 
@@ -24,6 +26,7 @@ public class CameraController : MonoBehaviour
         if (target == null && GameObject.FindGameObjectWithTag("Player") != null)
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
+            canFollow = true;
         }
         #endregion
     }
@@ -35,8 +38,18 @@ public class CameraController : MonoBehaviour
         {
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
+            if ((bottomRightBound.y < smoothedPosition.y && smoothedPosition.y < topLeftBound.y) && (bottomRightBound.x > smoothedPosition.y && smoothedPosition.x > topLeftBound.x))
+            {
+                transform.position = smoothedPosition;
+            }
         }
         #endregion
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(new Vector3(topLeftBound.x, topLeftBound.y, 0), .5f);
+        Gizmos.DrawWireSphere(new Vector3(bottomRightBound.x, bottomRightBound.y, 0), .5f);
     }
 }

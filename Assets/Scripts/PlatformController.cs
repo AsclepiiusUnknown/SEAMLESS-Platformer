@@ -9,16 +9,36 @@ public class PlatformController : MonoBehaviour
     public int colorIndex;
     public bool useColorIndex;
 
-    private void Start ()
+    public PlatformController otherBlock;
+    public bool useOtherBlockColor;
+
+    private void Start()
     {
         if (thisRenderer == null)
         {
-            thisRenderer = GetComponent<SpriteRenderer> ();
+            thisRenderer = GetComponent<SpriteRenderer>();
         }
 
-        if (!useColorIndex)
-            colorIndex = Random.Range (0, colors.Length);
+        if (useOtherBlockColor && otherBlock != null)
+        {
+            thisRenderer.color = otherBlock.thisRenderer.color;
+        }
+        else
+        {
+            if (!useColorIndex)
+            {
+                colorIndex = Random.Range(0, colors.Length);
+            }
 
-        thisRenderer.color = colors[colorIndex].primaryColor;
+            thisRenderer.color = colors[colorIndex].primaryColor;
+        }
+    }
+
+    private void Update()
+    {
+        if (useOtherBlockColor && otherBlock != null && thisRenderer.color != otherBlock.thisRenderer.color)
+        {
+            thisRenderer.color = otherBlock.thisRenderer.color;
+        }
     }
 }

@@ -42,6 +42,9 @@ public class YellowMovement : PlayerController
     [Header("Dashing")]
     public float dashSpeed = 5;
     public float dashLength = .4f;
+    public float dashShakeMagnitude = .25f;
+    public float dashShakeDuration = .15f;
+
     private bool hasDashed;
     private bool isPreppingDash;
     private bool isDashing;
@@ -254,6 +257,7 @@ public class YellowMovement : PlayerController
 
         rb.velocity += dir.normalized * dashSpeed;
         StartCoroutine(DashWait());
+        StartCoroutine(cameraShake.Shake(dashShakeDuration, dashShakeMagnitude));
     }
 
     IEnumerator DashWait()
