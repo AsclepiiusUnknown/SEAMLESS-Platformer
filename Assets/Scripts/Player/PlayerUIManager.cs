@@ -16,20 +16,13 @@ public class PlayerUIManager : PlayerController
 
     public override void Start()
     {
+        base.Start();
         if (circleBar != null)
             cicleBarColor = circleBar.color;
     }
 
     private void Update()
     {
-        if (playerStateMachine == null)
-        {
-            playerStateMachine = GetComponent<PlayerStateMachine>();
-            print("**NULL**");
-            return;
-        }
-
-
         switch (playerStateMachine.colorState)
         {
             case ColorStates.Red:

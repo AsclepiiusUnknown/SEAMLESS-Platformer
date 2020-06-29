@@ -22,6 +22,7 @@ public class PlatformController : MonoBehaviour
         if (useOtherBlockColor && otherBlock != null)
         {
             thisRenderer.color = otherBlock.thisRenderer.color;
+            colorIndex = otherBlock.colorIndex;
         }
         else
         {

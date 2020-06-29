@@ -56,7 +56,6 @@ public class RedMovement : PlayerController
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
     }
 
     public override void Start()
