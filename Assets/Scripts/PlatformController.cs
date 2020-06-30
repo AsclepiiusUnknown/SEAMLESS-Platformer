@@ -12,6 +12,19 @@ public class PlatformController : MonoBehaviour
     public PlatformController otherBlock;
     public bool useOtherBlockColor;
 
+    [Header("Shadown Effect")]
+    public Vector2 shadowOffset = new Vector2(-.15f, -.15f);
+    public Material shadowMat;
+    //public Color shadowColor;
+    //*PRIVATE//
+    private SpriteRenderer sasterSprRnd;
+    private SpriteRenderer shadowSprRnd;
+    private Transform casterTrans;
+    private Transform shadowTrans;
+    private Transform cameraTrans;
+
+
+
     private void Start()
     {
         if (thisRenderer == null)
@@ -22,7 +35,6 @@ public class PlatformController : MonoBehaviour
         if (useOtherBlockColor && otherBlock != null)
         {
             thisRenderer.color = otherBlock.thisRenderer.color;
-            colorIndex = otherBlock.colorIndex;
         }
         else
         {
@@ -33,6 +45,26 @@ public class PlatformController : MonoBehaviour
 
             thisRenderer.color = colors[colorIndex].primaryColor;
         }
+
+        #region Shadow Setup
+        cameraTrans = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+
+        casterTrans = transform;
+        shadowTrans = new GameObject().transform;
+        shadowTrans.parent = casterTrans;
+        shadowTrans.gameObject.name = casterTrans.gameObject.name + " Shadow";
+
+        sasterSprRnd = GetComponent<SpriteRenderer>();
+        shadowSprRnd = shadowTrans.gameObject.AddComponent<SpriteRenderer>();
+        shadowTrans.localRotation = Quaternion.identity;
+
+        shadowSprRnd.material = shadowMat;
+        shadowSprRnd.color = colors[colorIndex].secondaryColor;
+        shadowSprRnd.sortingLayerName = sasterSprRnd.sortingLayerName;
+        shadowSprRnd.sortingOrder = sasterSprRnd.sortingOrder - 1;
+
+        shadowTrans.localScale = new Vector3(1, 1, 1);
+        #endregion
     }
 
     private void Update()
@@ -40,6 +72,31 @@ public class PlatformController : MonoBehaviour
         if (useOtherBlockColor && otherBlock != null && thisRenderer.color != otherBlock.thisRenderer.color)
         {
             thisRenderer.color = otherBlock.thisRenderer.color;
+            for (int i = 0; i < colors.Length; i++)
+            {
+                if (colors[i].primaryColor == otherBlock.thisRenderer.color)
+                {
+                    colorIndex = i;
+                }
+            }
         }
+
+        #region Shadow Color Updates
+        if (shadowSprRnd.color != colors[colorIndex].secondaryColor)
+        {
+            shadowSprRnd.color = colors[colorIndex].secondaryColor;
+        }
+        #endregion
     }
+
+    #region Shadow Updates
+    private void LateUpdate()
+    {
+        float xCamTemp = Mathf.Clamp(casterTrans.position.x - cameraTrans.position.x, -1, 1);
+        float yCamTemp = Mathf.Clamp(casterTrans.position.y - cameraTrans.position.y, -1, 1);
+        shadowTrans.position = new Vector2(casterTrans.position.x + (shadowOffset.x * xCamTemp * -1), casterTrans.position.y + (shadowOffset.y * yCamTemp * -1));
+
+        shadowSprRnd.sprite = sasterSprRnd.sprite;
+    }
+    #endregion
 }

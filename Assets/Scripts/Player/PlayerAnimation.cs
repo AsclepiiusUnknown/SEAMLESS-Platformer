@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GD.MinMaxSlider;
 
 public class PlayerAnimation : PlayerController
 {
@@ -18,6 +19,8 @@ public class PlayerAnimation : PlayerController
     public float fallingScaleEffector;
     public float jumpingEffectTime = 2;
     public float fallingEffectTime = 2;
+    [MinMaxSlider(-5, 5)]
+    public Vector2 trailTimeClamp;
     private Vector3 scaleNormKeeper;
     #endregion
 
@@ -32,13 +35,16 @@ public class PlayerAnimation : PlayerController
     public override void Start()
     {
         base.Start();
-        scaleNormKeeper = rimObject.transform.localScale;
-        trailRenderer.endColor = Color.clear;
+        if (rimObject != null)
+            scaleNormKeeper = rimObject.transform.localScale;
+        if (trailRenderer != null)
+            trailRenderer.endColor = Color.clear;
     }
 
     public void Update()
     {
-        if (rb.velocity.y > 0)
+        #region Rim Jelly Effect
+        /**if (rb.velocity.y > 0)
         {
             Vector3 tempScale = scaleNormKeeper;
             tempScale.x = Mathf.Lerp(transform.localScale.x, jumpingScaleEffector, jumpingEffectTime * Time.deltaTime);
@@ -57,7 +63,8 @@ public class PlayerAnimation : PlayerController
             tempScale.y = Mathf.Lerp(rimRenderer.transform.localScale.y, scaleNormKeeper.y, fallingEffectTime * Time.deltaTime);
 
             rimRenderer.transform.localScale = tempScale;
-        }
+        }*/
+        #endregion
 
         /*if (isFacingRight == false && playerMovement.xRawInput > 0)
         {
@@ -80,26 +87,29 @@ public class PlayerAnimation : PlayerController
             }
         }
 
-        switch (playerStateMachine.colorState)
+        if (trailRenderer != null)
         {
-            case ColorStates.Red:
-                trailRenderer.startColor = playerStateMachine.colors[0].primaryColor;
-                break;
-            case ColorStates.Yellow:
-                trailRenderer.startColor = playerStateMachine.colors[1].primaryColor;
-                break;
-            case ColorStates.Green:
-                trailRenderer.startColor = playerStateMachine.colors[2].primaryColor;
-                break;
-            case ColorStates.Blue:
-                trailRenderer.startColor = playerStateMachine.colors[3].primaryColor;
-                break;
-            case ColorStates.Purple:
-                trailRenderer.startColor = playerStateMachine.colors[4].primaryColor;
-                break;
-        }
+            switch (playerStateMachine.colorState)
+            {
+                case ColorStates.Red:
+                    trailRenderer.startColor = playerStateMachine.colors[0].primaryColor;
+                    break;
+                case ColorStates.Yellow:
+                    trailRenderer.startColor = playerStateMachine.colors[1].primaryColor;
+                    break;
+                case ColorStates.Green:
+                    trailRenderer.startColor = playerStateMachine.colors[2].primaryColor;
+                    break;
+                case ColorStates.Blue:
+                    trailRenderer.startColor = playerStateMachine.colors[3].primaryColor;
+                    break;
+                case ColorStates.Purple:
+                    trailRenderer.startColor = playerStateMachine.colors[4].primaryColor;
+                    break;
+            }
 
-        trailRenderer.time = (trailTime * ((rb.velocity.x + rb.velocity.y) / 2) < 0) ? trailTime * ((rb.velocity.x + rb.velocity.y) / 2) * -1 : trailTime * ((rb.velocity.x + rb.velocity.y) / 2);
+            trailRenderer.time = Mathf.Clamp((trailTime * ((rb.velocity.x + rb.velocity.y) / 2) <= 0) ? trailTime * ((rb.velocity.x + rb.velocity.y) / 2) * -1 : trailTime * ((rb.velocity.x + rb.velocity.y) / 2), trailTimeClamp.x, trailTimeClamp.y);
+        }
     }
 
     void FlipSide()

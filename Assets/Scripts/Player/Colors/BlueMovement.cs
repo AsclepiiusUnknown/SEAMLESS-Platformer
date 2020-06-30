@@ -88,6 +88,7 @@ public class BlueMovement : PlayerController
     private void OnEnable()
     {
         circleFillAmount = .5f;
+        rb.gravityScale = 1;
     }
     #endregion
 

@@ -66,6 +66,11 @@ public class RedMovement : PlayerController
     }
     #endregion
 
+    private void OnEnable()
+    {
+        rb.gravityScale = 1;
+    }
+
     public void Update()
     {
         #region Jumping

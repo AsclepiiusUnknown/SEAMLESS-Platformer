@@ -240,10 +240,11 @@ public class PlayerStateMachine : PlayerController
             PlatformController platform = otherGO.GetComponent<PlatformController>();
             //print("Hit ground with color: " + platform.colors[platform.colorIndex]);
 
-            if (colorState.ToString() != colors[platform.colorIndex].name)
+            if (colorState.ToString() != colors[platform.colorIndex].name && !playerCollision.isRoofHanging)
             {
                 ChangeState(colors[platform.colorIndex].name);
-                StartCoroutine(cameraShake.Shake(colorShakeDuration, colorShakeMagnitude));
+                if (cameraShake != null)
+                    StartCoroutine(cameraShake.Shake(colorShakeDuration, colorShakeMagnitude));
             }
         }
     }

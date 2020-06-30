@@ -122,6 +122,7 @@ public class GreenMovement : PlayerController
     private void OnEnable()
     {
         circleFillAmount = 1;
+        rb.gravityScale = 1;
     }
     #endregion
 

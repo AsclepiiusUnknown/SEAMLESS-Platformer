@@ -159,3 +159,7 @@ MonoBehaviour:
   thisRenderer: {fileID: 3353869597585644843}
   colorIndex: 1
   useColorIndex: 0
+  otherBlock: {fileID: 0}
+  useOtherBlockColor: 0
+  shadowOffset: {x: -0.15, y: -0.15}
+  shadowMat: {fileID: 2100000, guid: 090f1ca92b0b0434f8590196ccd5dc70, type: 2}

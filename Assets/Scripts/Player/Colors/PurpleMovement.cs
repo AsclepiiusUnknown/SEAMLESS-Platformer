@@ -39,6 +39,7 @@ public class PurpleMovement : PlayerController
     #region GRAVITY CONTROL
     [Header("Gravity Control")]
     public int extraGravSwitchValue = 1;
+    public float normalGravity = .8f;
 
     //* PRIVATE //
     [HideInInspector]
@@ -88,7 +89,7 @@ public class PurpleMovement : PlayerController
     public override void Start()
     {
         base.Start();
-        rb.gravityScale = 1;
+        rb.gravityScale = normalGravity;
 
         extraJumpKeeper = extraJumpValue;
         extraGravSwitchKeeper = extraGravSwitchValue;
@@ -98,6 +99,7 @@ public class PurpleMovement : PlayerController
     private void OnEnable()
     {
         circleFillAmount = .5f;
+        rb.gravityScale = normalGravity;
     }
     #endregion
 
