@@ -10,8 +10,6 @@ public class PlayerUIManager : PlayerController
     public Image circleBar;
     public TextMeshProUGUI circleBarText;
     private Color cicleBarColor;
-
-    public TextMeshProUGUI scaleText;
     #endregion
 
     public override void Start()
@@ -41,7 +39,6 @@ public class PlayerUIManager : PlayerController
                     }
 
                     circleBarText.text = "Stamina"; //! Optimise
-                    scaleText.text = "";
                     break;
                 #endregion
 
@@ -56,7 +53,6 @@ public class PlayerUIManager : PlayerController
                     }
 
                     circleBarText.text = "Stamina"; //! Optimise
-                    scaleText.text = "";
                     break;
                 #endregion
 
@@ -71,7 +67,6 @@ public class PlayerUIManager : PlayerController
                     }
 
                     circleBarText.text = "Time Scale: \n" + Time.timeScale; //! Optimise
-                    scaleText.text = "";
                     break;
                 #endregion
 
@@ -95,7 +90,6 @@ public class PlayerUIManager : PlayerController
                     }
 
                     circleBarText.text = "Gravity Scale: \n" + purple.rb.gravityScale; //! Optimise
-                    scaleText.text = "";
                     break;
                     #endregion
             }

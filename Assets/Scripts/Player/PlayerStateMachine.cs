@@ -17,6 +17,7 @@ public class PlayerStateMachine : PlayerController
     [Header("Effects")]
     public float colorShakeMagnitude = .25f;
     public float colorShakeDuration = .15f;
+    public BgColorCycler colorCycler;
     #endregion
 
 
@@ -204,6 +205,8 @@ public class PlayerStateMachine : PlayerController
         #region Initialisation
         Debug.Log(color + ": Enter");
         colorState = (ColorStates)System.Enum.Parse(typeof(ColorStates), color);
+        if (colorCycler != null)
+            colorCycler.ProcessColorString(color);
 
         #region Enabling
         colorScripts.redMovement.enabled = (color == "Red") ? true : false;

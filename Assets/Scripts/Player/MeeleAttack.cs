@@ -30,7 +30,7 @@ public class MeeleAttack : MonoBehaviour
         else
         {
             timeBtwAttackKeeper -= Time.deltaTime;
-            animator.SetBool("isAttacking", false);
+            //            animator.SetBool("isAttacking", false);
         }
     }
 

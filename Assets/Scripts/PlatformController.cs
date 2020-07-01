@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GD.MinMaxSlider;
 
 public class PlatformController : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class PlatformController : MonoBehaviour
     [Header("Shadown Effect")]
     public Vector2 shadowOffset = new Vector2(-.15f, -.15f);
     public Material shadowMat;
-    //public Color shadowColor;
+    [MinMaxSlider(-10, 10)]
+    public Vector2 shadowOffsetClamping;
     //*PRIVATE//
     private SpriteRenderer sasterSprRnd;
     private SpriteRenderer shadowSprRnd;
@@ -92,9 +94,13 @@ public class PlatformController : MonoBehaviour
     #region Shadow Updates
     private void LateUpdate()
     {
-        float xCamTemp = Mathf.Clamp(casterTrans.position.x - cameraTrans.position.x, -1, 1);
-        float yCamTemp = Mathf.Clamp(casterTrans.position.y - cameraTrans.position.y, -1, 1);
-        shadowTrans.position = new Vector2(casterTrans.position.x + (shadowOffset.x * xCamTemp * -1), casterTrans.position.y + (shadowOffset.y * yCamTemp * -1));
+        float xCamTemp = Mathf.Clamp(casterTrans.position.x - cameraTrans.position.x, shadowOffsetClamping.x, shadowOffsetClamping.y);
+        float yCamTemp = Mathf.Clamp(casterTrans.position.y - cameraTrans.position.y, shadowOffsetClamping.x, shadowOffsetClamping.y);
+
+        float xShadowPos = (casterTrans.position.x + (shadowOffset.x * -xCamTemp));
+        float yShadowPos = casterTrans.position.y + (shadowOffset.y * -yCamTemp);
+
+        shadowTrans.position = new Vector2(xShadowPos, yShadowPos);
 
         shadowSprRnd.sprite = sasterSprRnd.sprite;
     }

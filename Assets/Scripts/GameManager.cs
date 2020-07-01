@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameUiContainer;
     public GameObject pauseContainer;
     public GameObject optionsContainer;
+    public GameObject victoryContainer;
+
 
     private bool isPaused = false;
     private float timeScaleKeeper;
@@ -43,5 +45,11 @@ public class GameManager : MonoBehaviour
             optionsContainer.SetActive(false);
             pauseContainer.SetActive(true);
         }
+    }
+
+    public void CompleteLevel()
+    {
+        victoryContainer.SetActive(true);
+        gameUiContainer.SetActive(false);
     }
 }
