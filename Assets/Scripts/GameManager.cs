@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused = false;
     private float timeScaleKeeper;
+    public static bool canMove = true;
 
     private void Update()
     {
@@ -51,5 +52,6 @@ public class GameManager : MonoBehaviour
     {
         victoryContainer.SetActive(true);
         gameUiContainer.SetActive(false);
+        canMove = false;
     }
 }

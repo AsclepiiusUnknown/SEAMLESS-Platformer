@@ -109,6 +109,8 @@ public class YellowMovement : PlayerController
 
     public void Update()
     {
+        if (!GameManager.canMove) return;
+
         #region Dash Prepping & Input
         rb.gravityScale = (playerCollision.isLedgeGrabbing) ? 0 : gravityScaleKeeper;
 
@@ -181,6 +183,8 @@ public class YellowMovement : PlayerController
 
     private void FixedUpdate()
     {
+        if (!GameManager.canMove) return;
+
         #region Movement
         // * //
         #region Raw Input Setup

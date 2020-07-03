@@ -128,6 +128,7 @@ public class GreenMovement : PlayerController
 
     public void Update()
     {
+        if (!GameManager.canMove) return;
         rb.gravityScale = (playerCollision.isLedgeGrabbing) ? 0 : gravityScaleKeeper;
 
         #region Jumping
@@ -269,6 +270,8 @@ public class GreenMovement : PlayerController
 
     private void FixedUpdate()
     {
+        if (!GameManager.canMove) return;
+
         #region Movement
         // * //
         #region Raw Input Setup

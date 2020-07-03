@@ -105,6 +105,8 @@ public class PurpleMovement : PlayerController
 
     public void Update()
     {
+        if (!GameManager.canMove) return;
+
         #region Gravity Checking
         if (rb.gravityScale < 0)
         {
@@ -187,6 +189,8 @@ public class PurpleMovement : PlayerController
 
     private void FixedUpdate()
     {
+        if (!GameManager.canMove) return;
+
         #region Movement
         // * //
         #region Raw Input Setup

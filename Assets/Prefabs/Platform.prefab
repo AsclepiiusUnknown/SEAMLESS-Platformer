@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3353869597585644843}
   - component: {fileID: 3353869597585644840}
   - component: {fileID: 3353869597585644841}
+  - component: {fileID: -7966032423783538350}
   m_Layer: 13
   m_Name: Platform
   m_TagString: Ground
@@ -164,3 +165,24 @@ MonoBehaviour:
   shadowOffset: {x: -0.15, y: -0.15}
   shadowMat: {fileID: 2100000, guid: 090f1ca92b0b0434f8590196ccd5dc70, type: 2}
   shadowOffsetClamping: {x: -1.5, y: 1.5}
+--- !u!50 &-7966032423783538350
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3353869597585644837}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

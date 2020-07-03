@@ -73,6 +73,8 @@ public class RedMovement : PlayerController
 
     public void Update()
     {
+        if (!GameManager.canMove) return;
+
         #region Jumping
         CoyoteTimeKeeper -= Time.deltaTime;
 
@@ -108,6 +110,8 @@ public class RedMovement : PlayerController
 
     private void FixedUpdate()
     {
+        if (!GameManager.canMove) return;
+
         #region Movement
         // * //
         #region Raw Input Setup
