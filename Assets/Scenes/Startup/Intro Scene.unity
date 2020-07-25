@@ -1205,6 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e9c560e1c57014b934ef793c15a63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
 --- !u!1001 &587473994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1327,6 +1328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e9c560e1c57014b934ef793c15a63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
 --- !u!61 &596146425
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1553,6 +1555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e9c560e1c57014b934ef793c15a63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
 --- !u!61 &689949660
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2326,6 +2329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e9c560e1c57014b934ef793c15a63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
 --- !u!61 &961252243
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3367,7 +3371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endWord: SEAMLESS
-  waitTime: 0.15
+  waitTime: 0.05
   lettersDisplay:
   - {fileID: 1590015895}
   - {fileID: 1107084865}
@@ -3377,6 +3381,7 @@ MonoBehaviour:
   - {fileID: 1802904614}
   - {fileID: 903919241}
   - {fileID: 2089216261}
+  menuScene: Main Menu
 --- !u!1 &1452606295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4720,6 +4725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e9c560e1c57014b934ef793c15a63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
 --- !u!61 &1832123597
 BoxCollider2D:
   m_ObjectHideFlags: 0

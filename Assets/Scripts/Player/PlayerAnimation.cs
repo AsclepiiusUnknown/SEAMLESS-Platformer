@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GD.MinMaxSlider;
 
 public class PlayerAnimation : PlayerController
 {
@@ -19,7 +18,6 @@ public class PlayerAnimation : PlayerController
     public float fallingScaleEffector;
     public float jumpingEffectTime = 2;
     public float fallingEffectTime = 2;
-    [MinMaxSlider(-5, 5)]
     public Vector2 trailTimeClamp;
     private Vector3 scaleNormKeeper;
     #endregion

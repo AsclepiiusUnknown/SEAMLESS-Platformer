@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ public class LetterCycling : MonoBehaviour
     private char randomLetter; //A random letter to compare to the real letter (changed constantly)
 
     [Header("Completion Checks")]
+    public string menuScene;
     private int completionCount = 0; //Used to check how many of the letters are complete
     private bool isComplete = false; //Used to check if all of the letters are complete (triggers animations and stuff)
     private bool[] letterDone; //Used to check which specific letters are complete
@@ -51,6 +53,7 @@ public class LetterCycling : MonoBehaviour
         if (completionCount == letters.Length && !isComplete)
         {
             isComplete = true;
+            SceneManager.LoadScene(menuScene);
         }
     }
 

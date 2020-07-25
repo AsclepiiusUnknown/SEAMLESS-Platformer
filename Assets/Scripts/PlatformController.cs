@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GD.MinMaxSlider;
 
 public class PlatformController : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class PlatformController : MonoBehaviour
     [Header("Shadown Effect")]
     public Vector2 shadowOffset = new Vector2(-.15f, -.15f);
     public Material shadowMat;
-    [MinMaxSlider(-10, 10)]
     public Vector2 shadowOffsetClamping;
     //*PRIVATE//
     private SpriteRenderer sasterSprRnd;
